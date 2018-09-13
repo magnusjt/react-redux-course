@@ -1,42 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {createStore} from 'redux'
+import {createStore, combineReducers} from 'redux'
 import {Provider, connect} from 'react-redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-const ACTION_TYPES = {
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT'
-}
+import makeApp from './App'
+import KindergartenAction from './KindergartenAction'
+import municipalityReducer from './municipalityReducer'
+import kindergartenReducer from './kindergartenReducer'
+import * as selectors from './selectors'
 
-const createCounterActions = dispatch => ({
-    increment: () => dispatch({type: ACTION_TYPES.INCREMENT}),
-    decrement: () => dispatch({type: ACTION_TYPES.DECREMENT})
+const reducer = combineReducers({
+    municipality: municipalityReducer,
+    kindergarten: kindergartenReducer
 })
+const store = createStore(reducer, composeWithDevTools())
 
-const counterReducer = (counter = 0, action) => {
-    if(action.type === ACTION_TYPES.INCREMENT) return counter + 1
-    if(action.type === ACTION_TYPES.DECREMENT) return counter - 1
-    return counter
-}
+const kindergartenAction = new KindergartenAction(store.dispatch.bind(store), window.fetch.bind(window))
 
-const App = props => (
-   <div>
-       Counter value: {props.counter}
-       <button onClick={() => props.counterActions.increment()}>Increment</button>
-       <button onClick={() => props.counterActions.decrement()}>Decrement</button>
-   </div>
-)
-
-const mapStateToProps = state => ({counter: state})
-const mapDispatchToProps = dispatch => ({counterActions: createCounterActions(dispatch)})
-const ConnectedAppComponent = connect(mapStateToProps, mapDispatchToProps)(App)
-
-const store = createStore(counterReducer, composeWithDevTools())
+const mapStateToProps = state => ({
+    municipality: state.municipality,
+    kindergarten: state.kindergarten,
+    kindergartens: selectors.selectedKindergartens(state),
+    municipalities: selectors.municipalitiesWithSelected(state)
+})
+const App = connect(mapStateToProps)(makeApp(kindergartenAction))
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedAppComponent />
+        <App />
     </Provider>,
     document.getElementById('root')
 )
