@@ -24,7 +24,7 @@ class App extends Component{
                     <ul>
                     {this.props.municipalities.map(municipality => (
                         <li key={municipality.kommunenummer} style={{backgroundColor: municipality.selected ? 'red' : 'white'}}>
-                            <a href='#' onClick={() => this.onClickMunicipality(municipality.kommunenummer)}>{municipality.kommunenavn}</a>
+                            <button className="btn-link" onClick={() => this.onClickMunicipality(municipality.kommunenummer)}>{municipality.kommunenavn}</button>
                         </li>
                     ))}
                     </ul>
