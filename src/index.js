@@ -4,6 +4,7 @@ import {createStore, combineReducers} from 'redux'
 import {Provider, connect} from 'react-redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
+import './index.css'
 import makeApp from './App'
 import KindergartenAction from './KindergartenAction'
 import municipalityReducer from './municipalityReducer'
