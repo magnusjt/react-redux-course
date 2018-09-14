@@ -30,4 +30,15 @@ export default class KindergartenAction{
             this._dispatch({type: ACTION_TYPES.LOAD_KINDERGARTENS_FAILURE, error: err.message})
         }
     }
+
+    async loadKindergartenDetails(nsrId){
+        this._dispatch({type: ACTION_TYPES.LOAD_KINDERGARTEN_DETAILS_ATTEMPT})
+        try{
+            const response = await this._fetch(`http://www.barnehagefakta.no/api/Barnehage/${encodeURIComponent(nsrId)}`)
+            const details = await response.json()
+            this._dispatch({type: ACTION_TYPES.LOAD_KINDERGARTEN_DETAILS_SUCCESS, details})
+        }catch(err){
+            this._dispatch({type: ACTION_TYPES.LOAD_KINDERGARTEN_DETAILS_FAILURE, error: err.message})
+        }
+    }
 }

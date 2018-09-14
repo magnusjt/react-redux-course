@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
+import Link from '../../../components/Link'
 
 const Page = styled.div`
   display: flex;
@@ -35,9 +36,6 @@ const ColumnBody = styled.div`
  */
 export default kindergartenAction =>
 class App extends Component{
-    componentDidMount(){
-        kindergartenAction.loadCounties()
-    }
     onClickMunicipality(municipalityId){
         kindergartenAction.loadKindergartens(municipalityId)
     }
@@ -73,7 +71,7 @@ class App extends Component{
 
                         <ul>
                         {this.props.kindergartens.map(kindergarten => (
-                            <li key={kindergarten.nsrId}>{kindergarten.navn}</li>
+                            <li key={kindergarten.nsrId}><Link to={`/${kindergarten.nsrId}`}>{kindergarten.navn}</Link></li>
                         ))}
                         </ul>
                     </ColumnBody>
