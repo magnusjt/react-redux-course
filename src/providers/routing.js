@@ -38,8 +38,8 @@ export default ioc => {
     // Used by the RouteRenderer component when it chooses what component to render
     ioc.service('RouteToComponentMap', ioc => {
         return {
-            [ROUTES.ROUTE_MAIN]: ioc['Kindergarten.App'],
-            [ROUTES.ROUTE_DETAILS]: ioc['Kindergarten.Details']
+            [ROUTES.ROUTE_MAIN]: ioc['Kindergarten.RouteMain'],
+            [ROUTES.ROUTE_DETAILS]: ioc['Kindergarten.RouteDetails']
         }
     })
 

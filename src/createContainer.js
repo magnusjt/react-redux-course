@@ -4,6 +4,7 @@ import config from './providers/config'
 import redux from './providers/redux'
 import routing from './providers/routing'
 
+import layout from './modules/layout/provider'
 import kindergarten from './modules/kindergarten/provider'
 
 export default () => {
@@ -15,6 +16,7 @@ export default () => {
     routing(ioc)
 
     // Module providers go here
+    layout(ioc)
     kindergarten(ioc)
 
     return ioc
