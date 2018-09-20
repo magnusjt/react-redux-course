@@ -10,7 +10,7 @@ const Body = styled.div`
 `
 
 export default (Layout) =>
-class Details extends Component{
+class RouteDetails extends Component{
     render(){
         const {details, isLoading} = this.props.kindergartenDetails
 

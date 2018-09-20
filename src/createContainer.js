@@ -6,6 +6,7 @@ import routing from './providers/routing'
 
 import layout from './modules/layout/provider'
 import kindergarten from './modules/kindergarten/provider'
+import settings from './modules/settings/provider'
 
 export default () => {
     let ioc = new Container()
@@ -18,6 +19,7 @@ export default () => {
     // Module providers go here
     layout(ioc)
     kindergarten(ioc)
+    settings(ioc)
 
     return ioc
 }
