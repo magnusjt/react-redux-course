@@ -6,23 +6,32 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 
 const ACTION_TYPES = {
     INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT'
+    DECREMENT: 'DECREMENT',
+    CHANGE_NAME: 'CHANGE_NAME'
 }
 
 const createCounterActions = dispatch => ({
     increment: () => dispatch({type: ACTION_TYPES.INCREMENT}),
-    decrement: () => dispatch({type: ACTION_TYPES.DECREMENT})
+    decrement: () => dispatch({type: ACTION_TYPES.DECREMENT}),
+    changeName: name => dispatch({type: ACTION_TYPES.CHANGE_NAME, name})
 })
 
-const counterReducer = (counter = 0, action) => {
-    if(action.type === ACTION_TYPES.INCREMENT) return counter + 1
-    if(action.type === ACTION_TYPES.DECREMENT) return counter - 1
-    return counter
+const initialState = {
+    value: 0,
+    name: ''
+}
+const counterReducer = (state = initialState, action) => {
+    if(action.type === ACTION_TYPES.INCREMENT) return {...state, value: state.value + 1}
+    if(action.type === ACTION_TYPES.DECREMENT) return {...state, value: state.value - 1}
+    if(action.type === ACTION_TYPES.CHANGE_NAME) return {...state, name: action.name}
+    return state
 }
 
 const App = props => (
    <div>
-       Counter value: {props.counter}
+       Counter value: {props.counter.value} Counter name: {props.counter.name}
+       <br />
+       <input value={props.counter.name} onChange={e => props.counterActions.changeName(e.target.value)} />
        <button onClick={() => props.counterActions.increment()}>Increment</button>
        <button onClick={() => props.counterActions.decrement()}>Decrement</button>
    </div>
