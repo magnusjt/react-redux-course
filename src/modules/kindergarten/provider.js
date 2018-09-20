@@ -17,6 +17,7 @@ export default ioc => {
     }))(RouteMain(ioc['Layout.Layout'], ioc['Kindergarten.KindergartenAction'])))
 
     ioc.service('Kindergarten.RouteDetails', ioc => connect(state => ({
-        kindergartenDetails: state.kindergarten.kindergartenDetails
+        kindergartenDetails: state.kindergarten.kindergartenDetails,
+        hasTooManyChildren: selectors.kindergartenHasTooManyChildren(state)
     }))(RouteDetails(ioc['Layout.Layout'])))
 }

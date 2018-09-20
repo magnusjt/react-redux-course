@@ -73,7 +73,7 @@ class RouteMain extends Component{
 
                             <ul>
                                 {this.props.kindergartens.map(kindergarten => (
-                                    <li key={kindergarten.nsrId}><Link to={`/${kindergarten.nsrId}`}>{kindergarten.navn}</Link></li>
+                                    <li key={kindergarten.nsrId}><Link to={`/kindergartens/${kindergarten.nsrId}`}>{kindergarten.navn}</Link></li>
                                 ))}
                             </ul>
                         </ColumnBody>

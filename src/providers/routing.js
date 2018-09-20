@@ -5,7 +5,8 @@ import createHistory from 'history/createBrowserHistory'
 
 export const ROUTES = {
     ROUTE_MAIN: 'ROUTE_MAIN',
-    ROUTE_DETAILS: 'ROUTE_DETAILS'
+    ROUTE_DETAILS: 'ROUTE_DETAILS',
+    ROUTE_SETTINGS: 'ROUTE_SETTINGS'
 }
 
 export default ioc => {
@@ -20,12 +21,15 @@ export default ioc => {
                 }
             },
             [ROUTES.ROUTE_DETAILS]: {
-                path: `/:kindergartenId`,
+                path: `/kindergartens/:kindergartenId`,
                 thunk: async (dispatch, getState) => {
                     /** @type {KindergartenAction} kindergartenAction */
                     const kindergartenAction = ioc['Kindergarten.KindergartenAction']
                     kindergartenAction.loadKindergartenDetails(getState().location.payload.kindergartenId)
                 }
+            },
+            [ROUTES.ROUTE_SETTINGS]: {
+                path: `/settings`
             },
             [NOT_FOUND]: {
                 thunk: async (dispatch, getState) => {
@@ -39,7 +43,8 @@ export default ioc => {
     ioc.service('RouteToComponentMap', ioc => {
         return {
             [ROUTES.ROUTE_MAIN]: ioc['Kindergarten.RouteMain'],
-            [ROUTES.ROUTE_DETAILS]: ioc['Kindergarten.RouteDetails']
+            [ROUTES.ROUTE_DETAILS]: ioc['Kindergarten.RouteDetails'],
+            [ROUTES.ROUTE_SETTINGS]: ioc['Settings.RouteSettings']
         }
     })
 

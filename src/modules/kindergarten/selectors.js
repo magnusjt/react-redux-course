@@ -8,3 +8,7 @@ export const municipalitiesWithSelected = state =>
 export const selectedKindergartens = state =>
     Object.values(state.kindergarten.kindergartens)
         .filter(kindergarten => kindergarten.kommunenummer === state.municipality.selectedMunicipality)
+
+export const kindergartenHasTooManyChildren = state =>
+    state.kindergarten.kindergartenDetails.details &&
+    state.kindergarten.kindergartenDetails.details.indikatorDataBarnehage.antallBarnPerAnsatt > state.settings.maxChildrenPerEmployee

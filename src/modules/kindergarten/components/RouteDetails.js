@@ -8,6 +8,10 @@ const Header = styled.div`
 const Body = styled.div`
  padding: 15px;
 `
+const Warning = styled.span`
+  color: red;
+  font-weight: bold;
+`
 
 export default (Layout) =>
 class RouteDetails extends Component{
@@ -35,7 +39,11 @@ class RouteDetails extends Component{
                         </li>
 
                         <li>Antall barn: {getDetail('indikatorDataBarnehage.antallBarn')}</li>
-                        <li>Antall barn per ansatt: {getDetail('indikatorDataBarnehage.antallBarnPerAnsatt')}</li>
+                        <li>Antall barn per ansatt: {getDetail('indikatorDataBarnehage.antallBarnPerAnsatt')}
+                            {this.props.hasTooManyChildren &&
+                            <Warning > For mange barn!</Warning>
+                            }
+                        </li>
                     </ul>
                 </Body>
             </Layout>

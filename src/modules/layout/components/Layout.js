@@ -19,6 +19,12 @@ const Header = styled.div`
     margin: 0;
   }
 `
+const HeaderMenu = styled.div`
+  flex: 1;
+  
+  display: flex;
+  justify-content: flex-end;
+`
 const Body = styled.div`
   flex: 1;
   
@@ -30,9 +36,14 @@ export default class Layout extends Component{
         return (
             <Page>
                 <Header>
+                    <div>
                     <h1>
                         <Link to="/">Barnehage</Link> - {this.props.subtitle}
                     </h1>
+                    </div>
+                    <HeaderMenu>
+                        <Link to="/settings">Settings</Link>
+                    </HeaderMenu>
                 </Header>
                 <Body>
                     {this.props.children}
