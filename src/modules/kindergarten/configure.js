@@ -6,18 +6,24 @@ import RouteMain from './components/RouteMain'
 import RouteDetails from './components/RouteDetails'
 import * as selectors from './selectors'
 
-export default ioc => {
-    ioc.service('Kindergarten.KindergartenAction', ioc => new KindergartenAction(ioc['ReduxDispatch'], window.fetch.bind(window)))
+export default ({reduxDispatch, Layout}) => {
+    const kindergartenAction = new KindergartenAction(reduxDispatch, window.fetch.bind(window))
 
-    ioc.service('Kindergarten.RouteMain', ioc => connect(state => ({
+    const ConnectedRouteMain = connect(state => ({
         municipality: state.kindergarten.municipality,
         kindergarten: state.kindergarten.kindergarten,
         kindergartens: selectors.selectedKindergartens(state.kindergarten),
         municipalities: selectors.municipalitiesWithSelected(state.kindergarten)
-    }))(RouteMain(ioc['Layout.Layout'], ioc['Kindergarten.KindergartenAction'])))
+    }))(RouteMain(Layout, kindergartenAction))
 
-    ioc.service('Kindergarten.RouteDetails', ioc => connect(state => ({
+    const ConnectedRouteDetails = connect(state => ({
         kindergartenDetails: state.kindergarten.kindergartenDetails,
         hasTooManyChildren: selectors.kindergartenHasTooManyChildren(state)
-    }))(RouteDetails(ioc['Layout.Layout'])))
+    }))(RouteDetails(Layout))
+
+    return {
+        RouteMain: ConnectedRouteMain,
+        RouteDetails: ConnectedRouteDetails,
+        kindergartenAction
+    }
 }

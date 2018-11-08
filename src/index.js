@@ -2,12 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './css/index.css'
 import { Provider } from 'react-redux'
-import createContainer from './createContainer'
+import configure from './configure'
 
-const ioc = createContainer()
-const store = ioc['ReduxStore']
-const RouteRenderer = ioc['RouteRenderer']
-const onAppStart = ioc['onAppStart']
+const {store, RouteRenderer, onAppStart} = configure()
 
 onAppStart()
 
